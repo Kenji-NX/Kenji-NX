@@ -589,6 +589,7 @@
   "LanguageTooltip": "Cambia lingua di sistema",
   "TimezoneTooltip": "Cambia fuso orario di sistema",
   "TimeTooltip": "Cambia data e ora di sistema",
+  "MatchTimeTooltip": "Sincronizza data e ora del sistema con quelle del PC.",
   "VSyncToggleTooltip": "Sincronizzazione verticale della console Emulata. Essenzialmente un limitatore di frame per la maggior parte dei giochi; disabilitarlo può far girare giochi a velocità più alta, allungare le schermate di caricamento o farle bloccare.\n\nPuò essere attivata in gioco con un tasto di scelta rapida (F1 per impostazione predefinita). Ti consigliamo di farlo se hai intenzione di disabilitarlo.\n\nLascia ON se non sei sicuro.",
   "PptcToggleTooltip": "Salva le funzioni JIT tradotte in modo che non debbano essere tradotte tutte le volte che si avvia un determinato gioco.\n\nRiduce i fenomeni di stuttering e velocizza sensibilmente gli avvii successivi del gioco.\n\nNel dubbio, lascia l'opzione attiva.",
   "LowPowerPptcToggleTooltip": "Load the PPTC using a third of the amount of cores.",

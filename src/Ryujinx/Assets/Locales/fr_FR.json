@@ -591,6 +591,7 @@
   "LanguageTooltip": "Changer la langue du système",
   "TimezoneTooltip": "Changer le fuseau horaire du système",
   "TimeTooltip": "Changer l'heure du système",
+  "MatchTimeTooltip": "Resynchronise la Date du Système pour qu'elle soit la même que celle du PC.",
   "VSyncToggleTooltip": "La synchronisation verticale de la console émulée. Essentiellement un limiteur de trame pour la majorité des jeux ; le désactiver peut entraîner un fonctionnement plus rapide des jeux ou prolonger ou bloquer les écrans de chargement.\n\nPeut être activé ou désactivé en jeu avec un raccourci clavier de votre choix (F1 par défaut). Nous recommandons de le faire si vous envisagez de le désactiver.\n\nLaissez activé si vous n'êtes pas sûr.",
   "PptcToggleTooltip": "Sauvegarde les fonctions JIT afin qu'elles n'aient pas besoin d'être à chaque fois recompiler lorsque le jeu se charge.\n\nRéduit les lags et accélère considérablement le temps de chargement après le premier lancement d'un jeu.\n\nLaissez par défaut si vous n'êtes pas sûr.",
   "LowPowerPptcToggleTooltip": "Load the PPTC using a third of the amount of cores.",

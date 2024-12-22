@@ -146,6 +146,7 @@
   "SettingsTabSystemSystemLanguageTraditionalChinese": "Chinês tradicional",
   "SettingsTabSystemSystemTimeZone": "Fuso horário do sistema:",
   "SettingsTabSystemSystemTime": "Hora do sistema:",
+  "SettingsTabSystemSystemTimeMatch": "매치 시스템 시간",
   "SettingsTabSystemEnableVsync": "Habilitar sincronia vertical",
   "SettingsTabSystemEnablePptc": "Habilitar PPTC (Profiled Persistent Translation Cache)",
   "SettingsTabSystemEnableLowPowerPptc": "Low-power PPTC",

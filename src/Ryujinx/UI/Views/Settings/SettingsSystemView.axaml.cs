@@ -1,5 +1,7 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Ryujinx.Ava.UI.ViewModels;
+using System;
 using TimeZone = Ryujinx.Ava.UI.Models.TimeZone;
 
 namespace Ryujinx.Ava.UI.Views.Settings
@@ -15,7 +17,7 @@ namespace Ryujinx.Ava.UI.Views.Settings
 
         private void TimeZoneBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems != null && e.AddedItems.Count > 0)
+            if (e.AddedItems.Count > 0)
             {
                 if (e.AddedItems[0] is TimeZone timeZone)
                 {
@@ -33,5 +35,7 @@ namespace Ryujinx.Ava.UI.Views.Settings
                 ViewModel.ValidateAndSetTimeZone(timeZone.Location);
             }
         }
+
+        private void MatchSystemTime_OnClick(object sender, RoutedEventArgs e) => ViewModel.MatchSystemTime();
     }
 }
