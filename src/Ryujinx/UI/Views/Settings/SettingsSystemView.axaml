@@ -166,7 +166,8 @@
                             ToolTip.Tip="{locale:Locale TimeTooltip}"
                             Width="250"/>
                         <DatePicker
-                            VerticalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding !MatchSystemTime}"
                             SelectedDate="{Binding CurrentDate}"
                             ToolTip.Tip="{locale:Locale TimeTooltip}"
                             Width="350" />
@@ -177,21 +178,21 @@
                         <TimePicker
                             VerticalAlignment="Center"
                             ClockIdentifier="24HourClock"
+                            IsEnabled="{Binding !MatchSystemTime}"
                             SelectedTime="{Binding CurrentTime}"
                             Width="350"
                             ToolTip.Tip="{locale:Locale TimeTooltip}" />
                     </StackPanel>
-                    <StackPanel
-                        Margin="250,0,0,10"
-                        Orientation="Horizontal">
-                        <Button
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
                             VerticalAlignment="Center"
-                            Click="MatchSystemTime_OnClick"
-                            Background="{DynamicResource SystemAccentColor}"
-                            Width="350"
-                            ToolTip.Tip="{locale:Locale MatchTimeTooltip}">
-                            <TextBlock Text="{locale:Locale SettingsTabSystemSystemTimeMatch}" />
-                        </Button>
+                            Text="{locale:Locale SettingsTabSystemSystemTimeMatch}"
+                            ToolTip.Tip="{locale:Locale MatchTimeTooltip}"
+                            Width="250"/>
+                        <CheckBox
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding MatchSystemTime}"
+                            ToolTip.Tip="{locale:Locale MatchTimeTooltip}"/>
                     </StackPanel>
                     <Separator />
                     <StackPanel Margin="0,10,0,10"

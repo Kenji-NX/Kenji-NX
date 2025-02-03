@@ -331,6 +331,8 @@ namespace Ryujinx.Ava.UI.ViewModels
         //private DateTimeOffset _currentDate;
         //private TimeSpan _currentTime;
 
+        public bool MatchSystemTime { get; set; }
+
         public DateTimeOffset CurrentDate { get; set; }
 
         public TimeSpan CurrentTime { get; set; }
@@ -456,18 +458,6 @@ namespace Ryujinx.Ava.UI.ViewModels
             Dispatcher.UIThread.Post(() => OnPropertyChanged(nameof(PreferredGpuIndex)));
         }
 
-        public void MatchSystemTime()
-        {
-            var dto = DateTimeOffset.Now;
-
-            CurrentDate = new DateTimeOffset(dto.Year, dto.Month, dto.Day, 0, 0, 0, dto.Offset);
-            
-            CurrentTime = dto.TimeOfDay;
-            
-            OnPropertyChanged(nameof(CurrentDate));
-            OnPropertyChanged(nameof(CurrentTime));
-        }
-
         public async Task LoadTimeZones()
         {
             _timeZoneContentManager = new TimeZoneContentManager();
@@ -569,7 +559,9 @@ namespace Ryujinx.Ava.UI.ViewModels
             CurrentDate = currentDateTime.Date;
             CurrentTime = currentDateTime.TimeOfDay;
 
-            EnableCustomVSyncInterval = config.Graphics.EnableCustomVSyncInterval.Value;
+            MatchSystemTime = config.System.MatchSystemTime;
+
+            EnableCustomVSyncInterval = config.Graphics.EnableCustomVSyncInterval;
             CustomVSyncInterval = config.Graphics.CustomVSyncInterval;
             VSyncMode = config.Graphics.VSyncMode;
             EnableFsIntegrityChecks = config.System.EnableFsIntegrityChecks;
@@ -675,6 +667,7 @@ namespace Ryujinx.Ava.UI.ViewModels
                 config.System.TimeZone.Value = TimeZone;
             }
 
+            config.System.MatchSystemTime.Value = MatchSystemTime;
             config.System.SystemTimeOffset.Value = Convert.ToInt64((CurrentDate.ToUnixTimeSeconds() + CurrentTime.TotalSeconds) - DateTimeOffset.Now.ToUnixTimeSeconds());
             config.Graphics.VSyncMode.Value = VSyncMode;
             config.Graphics.EnableCustomVSyncInterval.Value = EnableCustomVSyncInterval;

@@ -326,6 +326,11 @@ namespace Ryujinx.UI.Common.Configuration
             public ReactiveObject<long> SystemTimeOffset { get; private set; }
 
             /// <summary>
+            /// Instead of setting the time via configuration, use the values provided by the system.
+            /// </summary>
+            public ReactiveObject<bool> MatchSystemTime { get; private set; }
+
+            /// <summary>
             /// Enables or disables Docked Mode
             /// </summary>
             public ReactiveObject<bool> EnableDockedMode { get; private set; }
@@ -391,6 +396,9 @@ namespace Ryujinx.UI.Common.Configuration
                 Region = new ReactiveObject<Region>();
                 TimeZone = new ReactiveObject<string>();
                 SystemTimeOffset = new ReactiveObject<long>();
+                SystemTimeOffset.Event += static (sender, e) => LogValueChange(e, nameof(SystemTimeOffset));
+                MatchSystemTime = new ReactiveObject<bool>();
+                MatchSystemTime.Event += static (sender, e) => LogValueChange(e, nameof(MatchSystemTime));
                 EnableDockedMode = new ReactiveObject<bool>();
                 EnableDockedMode.Event += static (sender, e) => LogValueChange(e, nameof(EnableDockedMode));
                 EnablePtc = new ReactiveObject<bool>();
@@ -749,6 +757,7 @@ namespace Ryujinx.UI.Common.Configuration
                 SystemRegion = System.Region,
                 SystemTimeZone = System.TimeZone,
                 SystemTimeOffset = System.SystemTimeOffset,
+                MatchSystemTime = System.MatchSystemTime,
                 DockedMode = System.EnableDockedMode,
                 EnableDiscordIntegration = EnableDiscordIntegration,
                 CheckUpdatesOnStart = CheckUpdatesOnStart,
@@ -1630,6 +1639,15 @@ namespace Ryujinx.UI.Common.Configuration
                 configurationFileUpdated = true;
             }
             
+            if (configurationFileFormat.Version < 58)
+            {
+                Ryujinx.Common.Logging.Logger.Warning?.Print(LogClass.Application, $"Outdated configuration version {configurationFileFormat.Version}, migrating to version 58.");
+
+                configurationFileFormat.MatchSystemTime = false;
+
+                configurationFileUpdated = true;
+            }
+            
             Logger.EnableFileLog.Value = configurationFileFormat.EnableFileLog;
             Graphics.ResScale.Value = configurationFileFormat.ResScale;
             Graphics.ResScaleCustom.Value = configurationFileFormat.ResScaleCustom;
@@ -1656,6 +1674,7 @@ namespace Ryujinx.UI.Common.Configuration
             System.Region.Value = configurationFileFormat.SystemRegion;
             System.TimeZone.Value = configurationFileFormat.SystemTimeZone;
             System.SystemTimeOffset.Value = configurationFileFormat.SystemTimeOffset;
+            System.MatchSystemTime.Value = configurationFileFormat.MatchSystemTime;
             System.EnableDockedMode.Value = configurationFileFormat.DockedMode;
             EnableDiscordIntegration.Value = configurationFileFormat.EnableDiscordIntegration;
             CheckUpdatesOnStart.Value = configurationFileFormat.CheckUpdatesOnStart;
