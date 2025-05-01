@@ -1525,8 +1525,8 @@ namespace Ryujinx.Graphics.Vulkan
 
         private bool ChangeFeedbackLoop(FeedbackLoopAspects aspects)
         {
-            // AMD Radeon RX GPUs + Qualcomm SoCs only
-            if ((Gd.Vendor == Vendor.Amd && Gd.GpuRenderer.Contains("RX")) || Gd.Vendor == Vendor.Qualcomm)
+            // AMD RDNA 3 GPUs + Qualcomm SoCs only
+            if (Gd.IsAmdRdna3 || Gd.Vendor == Vendor.Qualcomm)
             {
                 if (_feedbackLoop != aspects)
                 {

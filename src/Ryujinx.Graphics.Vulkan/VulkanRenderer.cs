@@ -89,6 +89,7 @@ namespace Ryujinx.Graphics.Vulkan
         internal bool IsAmdWindows { get; private set; }
         internal bool IsIntelWindows { get; private set; }
         internal bool IsAmdGcn { get; private set; }
+        internal bool IsAmdRdna3 { get; private set; }
         internal bool IsNvidiaPreTuring { get; private set; }
         internal bool IsIntelArc { get; private set; }
         internal bool IsQualcommProprietary { get; private set; }
@@ -372,6 +373,10 @@ namespace Ryujinx.Graphics.Vulkan
             GpuVersion = $"Vulkan v{ParseStandardVulkanVersion(properties.ApiVersion)}, Driver v{ParseDriverVersion(ref properties)}";
 
             IsAmdGcn = !IsMoltenVk && Vendor == Vendor.Amd && VendorUtils.AmdGcnRegex().IsMatch(GpuRenderer);
+
+            IsAmdRdna3 = Vendor == Vendor.Amd && (VendorUtils.AmdRdna3Regex().IsMatch(GpuRenderer)
+                                                  // ROG Ally (X) Device IDs
+                                                  || properties.DeviceID is 0x15BF or 0x15C8);
 
             if (Vendor == Vendor.Nvidia)
             {
