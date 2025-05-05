@@ -56,8 +56,8 @@ namespace Ryujinx.Graphics.Gpu.Image
         private const ulong TextureSizeCapacity4GiB = 2 * GiB;
         private const ulong TextureSizeCapacity6GiB = 4 * GiB;
         private const ulong TextureSizeCapacity8GiB = 6 * GiB;
+        private const ulong TextureSizeCapacity10GiB = 10 * GiB;
         private const ulong TextureSizeCapacity12GiB = 12 * GiB;
-
 
         private const float MemoryScaleFactor = 0.50f;
         private ulong _maxCacheMemoryUsage = DefaultTextureSizeCapacity;
@@ -85,26 +85,16 @@ namespace Ryujinx.Graphics.Gpu.Image
             var cpuMemorySizeGiB = cpuMemorySize / GiB;
             var MaximumGpuMemoryGiB = context.Capabilities.MaximumGpuMemory / GiB;
 
-            if (cpuMemorySizeGiB < 6 && MaximumGpuMemoryGiB < 6 || context.Capabilities.MaximumGpuMemory == 0)
+            MaxTextureSizeCapacity = cpuMemorySizeGiB switch
             {
-                _maxCacheMemoryUsage = DefaultTextureSizeCapacity;
-            }
-            else if (cpuMemorySizeGiB < 6 && MaximumGpuMemoryGiB >= 6)
-            {
-                MaxTextureSizeCapacity = TextureSizeCapacity4GiB;
-            }
-            else if (cpuMemorySizeGiB == 6)
-            {
-                MaxTextureSizeCapacity = TextureSizeCapacity6GiB;
-            }
-            else if (cpuMemorySizeGiB == 8)
-            {
-                MaxTextureSizeCapacity = TextureSizeCapacity8GiB;
-            }
-            else
-            {
-                MaxTextureSizeCapacity = TextureSizeCapacity12GiB;
-            }
+                < 6 when MaximumGpuMemoryGiB < 6 || context.Capabilities.MaximumGpuMemory == 0 =>
+                    DefaultTextureSizeCapacity,
+                < 6 => TextureSizeCapacity4GiB,
+                6 => TextureSizeCapacity6GiB,
+                8 => TextureSizeCapacity8GiB,
+                10 => TextureSizeCapacity10GiB,
+                _ => TextureSizeCapacity12GiB
+            };
 
             var cacheMemory = (ulong)(context.Capabilities.MaximumGpuMemory * MemoryScaleFactor);
 
