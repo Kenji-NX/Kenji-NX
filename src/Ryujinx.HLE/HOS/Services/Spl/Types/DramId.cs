@@ -12,6 +12,8 @@ namespace Ryujinx.HLE.HOS.Services.Spl.Types
         IowaX1X2Samsung4GiB,
         IowaSansung4GiB,
         IowaSamsung8GiB,
+        IowaSamsung10GiB,
+        IowaSamsung12GiB,
         IowaHynix4GiB,
         IowaMicron4GiB,
         HoagSamsung4GiB,

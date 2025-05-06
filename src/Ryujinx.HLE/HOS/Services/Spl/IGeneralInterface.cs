@@ -69,24 +69,27 @@ namespace Ryujinx.HLE.HOS.Services.Spl
                     configValue = 0;
                     break;
                 case ConfigItem.DramId:
-                    if (memorySize == MemorySize.MemorySize8GiB)
+                    configValue = memorySize switch
                     {
-                        configValue = (ulong)DramId.IowaSamsung8GiB;
-                    }
-                    else if (memorySize == MemorySize.MemorySize6GiB)
-                    {
-                        configValue = (ulong)DramId.IcosaSamsung6GiB;
-                    }
-                    else
-                    {
-                        configValue = (ulong)DramId.IcosaSamsung4GiB;
-                    }
+                        MemorySize.MemorySize6GiB => (ulong)DramId.IcosaSamsung6GiB,
+                        MemorySize.MemorySize8GiB => (ulong)DramId.IowaSamsung8GiB,
+                        MemorySize.MemorySize10GiB => (ulong)DramId.IowaSamsung10GiB,
+                        MemorySize.MemorySize12GiB => (ulong)DramId.IowaSamsung12GiB,
+                        _ => (ulong)DramId.IcosaSamsung4GiB
+                    };
                     break;
                 case ConfigItem.SecurityEngineInterruptNumber:
                 case ConfigItem.FuseVersion:
                     return SmcResult.NotImplemented;
                 case ConfigItem.HardwareType:
-                    configValue = (ulong)HardwareType.Icosa;
+                    configValue = memorySize switch
+                    {
+                        MemorySize.MemorySize6GiB => (ulong)HardwareType.Icosa,
+                        MemorySize.MemorySize8GiB => (ulong)HardwareType.Iowa,
+                        MemorySize.MemorySize10GiB => (ulong)HardwareType.Iowa,
+                        MemorySize.MemorySize12GiB => (ulong)HardwareType.Iowa,
+                        _ => (ulong)HardwareType.Icosa
+                    };
                     break;
                 case ConfigItem.HardwareState:
                     configValue = (ulong)HardwareState.Production;
